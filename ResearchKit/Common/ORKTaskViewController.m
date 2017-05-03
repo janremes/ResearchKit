@@ -282,6 +282,10 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     return self;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+    
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     return [self commonInitWithTask:nil taskRunUUID:[NSUUID UUID]];
