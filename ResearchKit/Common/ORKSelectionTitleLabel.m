@@ -39,7 +39,7 @@
 + (UIFont *)defaultFont {
     // medium, 17. Increased by 1 due review feedback.
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
-    const CGFloat defaultSize = 17;
+    const CGFloat defaultSize = 18;
     return ORKMediumFontWithSize([[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] + 18 - defaultSize);
 }
 
