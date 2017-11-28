@@ -125,6 +125,9 @@ ORK_CLASS_AVAILABLE
 + (ORKMultipleValuePickerAnswerFormat *)multipleValuePickerAnswerFormatWithValuePickers:(NSArray<ORKValuePickerAnswerFormat *> *)valuePickers;
 
 + (ORKImageChoiceAnswerFormat *)choiceAnswerFormatWithImageChoices:(NSArray<ORKImageChoice *> *)imageChoices;
++ (ORKImageChoiceAnswerFormat *)choiceAnswerFormatWithImageChoices:(NSArray<ORKImageChoice *> *)imageChoices
+                                                             style:(ORKChoiceAnswerStyle)style
+                                                          vertical:(BOOL)vertical;
 
 + (ORKTextChoiceAnswerFormat *)choiceAnswerFormatWithStyle:(ORKChoiceAnswerStyle)style
                                                textChoices:(NSArray<ORKTextChoice *> *)textChoices;
@@ -726,7 +729,21 @@ ORK_CLASS_AVAILABLE
  
  @return An initialized image choice answer format.
  */
-- (instancetype)initWithImageChoices:(NSArray<ORKImageChoice *> *)imageChoices NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithImageChoices:(NSArray<ORKImageChoice *> *)imageChoices;
+
+/**
+ Returns an initialized image choice answer format using the specified array of images.
+ 
+ @param imageChoices    Array of `ORKImageChoice` objects.
+ @param style           The style of question, such as single or multiple choice.
+ @param vertical        Pass `YES` to stack images vertically; for the default horizontal
+ layout, pass `NO`.
+ 
+ @return An initialized image choice answer format.
+ */
+- (instancetype)initWithImageChoices:(NSArray<ORKImageChoice *> *)imageChoices
+                               style:(ORKChoiceAnswerStyle)style
+                            vertical:(BOOL)vertical NS_DESIGNATED_INITIALIZER;
 
 /**
  An array of `ORKImageChoice` objects that represent the available choices. (read-only)
@@ -735,6 +752,16 @@ ORK_CLASS_AVAILABLE
  each choice is spoken by VoiceOver when an image is highlighted.
  */
 @property (copy, readonly) NSArray<ORKImageChoice *> *imageChoices;
+
+/**
+ The style of the question (that is, single or multiple choice).
+ */
+@property (readonly) ORKChoiceAnswerStyle style;
+
+/**
+ A Boolean value indicating whether the choices are stacked vertically. (read-only)
+ */
+@property (readonly, getter=isVertical) BOOL vertical;
 
 @end
 
@@ -1053,17 +1080,37 @@ Returns an initialized numeric answer format using the specified style, unit des
  
  This method is the designated initializer.
  
- @param style       The style of the numeric answer (decimal or integer).
- @param unit        A string that displays a localized version of the unit designation.
- @param minimum     The minimum value to apply, or `nil` if none is specified.
- @param maximum     The maximum value to apply, or `nil` if none is specified.
- 
+ @param style                   The style of the numeric answer (decimal or integer).
+ @param unit                    A string that displays a localized version of the unit designation.
+ @param minimum                 The minimum value to apply, or `nil` if none is specified.
+ @param maximum                 The maximum value to apply, or `nil` if none is specified.
+
  @return An initialized numeric answer format.
  */
 - (instancetype)initWithStyle:(ORKNumericAnswerStyle)style
                          unit:(nullable NSString *)unit
                       minimum:(nullable NSNumber *)minimum
-                      maximum:(nullable NSNumber *)maximum NS_DESIGNATED_INITIALIZER;
+                      maximum:(nullable NSNumber *)maximum;
+
+/**
+Returns an initialized numeric answer format using the specified style, unit designation, and range
+ values.
+ 
+ This method is the designated initializer.
+ 
+ @param style                   The style of the numeric answer (decimal or integer).
+ @param unit                    A string that displays a localized version of the unit designation.
+ @param minimum                 The minimum value to apply, or `nil` if none is specified.
+ @param maximum                 The maximum value to apply, or `nil` if none is specified.
+ @param maximumFractionDigits   The maximum fraction digits, or `nil` if no maximum is specified.
+
+ @return An initialized numeric answer format.
+ */
+- (instancetype)initWithStyle:(ORKNumericAnswerStyle)style
+                         unit:(nullable NSString *)unit
+                      minimum:(nullable NSNumber *)minimum
+                      maximum:(nullable NSNumber *)maximum
+        maximumFractionDigits:(nullable NSNumber *)maximumFractionDigits NS_DESIGNATED_INITIALIZER;
 
 /**
  The style of numeric entry (decimal or integer). (read-only)
@@ -1094,12 +1141,13 @@ Returns an initialized numeric answer format using the specified style, unit des
 @property (copy, nullable) NSNumber *maximum;
 
 /**
- The decimal scale (number of digits to the right of the decimal point) allowed value for the
+ The maximum number of fraction digits to the right of the decimal point for the
  numeric answer.
  
- The default value of this property is `nil`, which means that no limit scale value is used.
+ The default value of this property is `nil`, which means that there's no maximum number of fraction
+ digits.
  */
-@property (copy, nullable) NSNumber *scale;
+@property (copy, nullable) NSNumber *maximumFractionDigits;
 
 @end
 
