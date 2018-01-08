@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2015-2017, Apple Inc. All rights reserved.
+ Copyright (c) 2017, Apple Inc. All rights reserved.
  Copyright (c) 2017, Sage Bionetworks
  
  Redistribution and use in source and binary forms, with or without modification,
@@ -29,7 +29,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
 #import "ORKTypes.h"
 
+
 ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierA = @"A";
+
 ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB = @"B";
+
+const double ORKDoubleDefaultValue = DBL_MAX;

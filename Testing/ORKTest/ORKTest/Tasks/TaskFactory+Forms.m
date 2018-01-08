@@ -319,6 +319,71 @@
         }
         
         {
+            ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"fqid_weight_001" text:@"Weight"
+                                                           answerFormat:[ORKAnswerFormat weightAnswerFormat]];
+            item.placeholder = @"Pick a weight (local system)";
+            [items addObject:item];
+        }
+        
+        {
+            ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"fqid_weight_002" text:@"Weight"
+                                                           answerFormat:[ORKAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKMeasurementSystemMetric]];
+            item.placeholder = @"Pick a weight (metric system)";
+            [items addObject:item];
+        }
+        
+        {
+            ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"fqid_weight_003" text:@"Weight"
+                                                           answerFormat:[ORKAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKMeasurementSystemUSC]];
+            item.placeholder = @"Pick a weight (USC system)";
+            [items addObject:item];
+        }
+        
+        {
+            ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"fqid_weight_004" text:@"Weight"
+                                                           answerFormat:[ORKAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKMeasurementSystemMetric
+                                                                                                                numericPrecision:ORKNumericPrecisionLow
+                                                                                                                    minimumValue:10
+                                                                                                                    maximumValue:20
+                                                                                                                    defaultValue:11.5]];
+            item.placeholder = @"Pick a weight (metric system, low precision)";
+            [items addObject:item];
+        }
+        
+        {
+            ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"fqid_weight_005" text:@"Weight"
+                                                           answerFormat:[ORKAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKMeasurementSystemUSC
+                                                                                                                numericPrecision:ORKNumericPrecisionLow
+                                                                                                                    minimumValue:10
+                                                                                                                    maximumValue:20
+                                                                                                                    defaultValue:11.5]];
+            item.placeholder = @"Pick a weight (USC system, low precision)";
+            [items addObject:item];
+        }
+        
+        {
+            ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"fqid_weight_006" text:@"Weight"
+                                                           answerFormat:[ORKAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKMeasurementSystemMetric
+                                                                                                                numericPrecision:ORKNumericPrecisionHigh
+                                                                                                                    minimumValue:10
+                                                                                                                    maximumValue:20
+                                                                                                                    defaultValue:11.5]];
+            item.placeholder = @"Pick a weight (metric system, high precision)";
+            [items addObject:item];
+        }
+        
+        {
+            ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"fqid_weight_007" text:@"Weight"
+                                                           answerFormat:[ORKAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKMeasurementSystemUSC
+                                                                                                                numericPrecision:ORKNumericPrecisionHigh
+                                                                                                                    minimumValue:10
+                                                                                                                    maximumValue:20
+                                                                                                                    defaultValue:11.5]];
+            item.placeholder = @"Pick a weight (USC system, high precision)";
+            [items addObject:item];
+        }
+                
+        {
             ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"birthdate1" text:@"Birthdate"
                                                            answerFormat:[ORKAnswerFormat dateAnswerFormat]];
             item.placeholder = @"Pick a date";
@@ -686,7 +751,31 @@
     }
     
     {
-        ORKFormStep *step = [[ORKFormStep alloc] initWithIdentifier:@"step5" title:@"Optional Form Items" text:@"Required form with no required items"];
+        ORKFormStep *step = [[ORKFormStep alloc] initWithIdentifier:@"step5" title:@"Optional Form Items" text:@"Optional form with custom validation"];
+        NSMutableArray *items = [NSMutableArray new];
+        [steps addObject:step];
+        
+        {
+            ORKFormItem *item = [[ORKFormItem alloc] initWithSectionTitle:@"Optional"];
+            [items addObject:item];
+        }
+        
+        {
+            ORKTextAnswerFormat *format = [ORKAnswerFormat textAnswerFormatWithMaximumLength:12];
+            format.multipleLines = NO;
+            ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"text"
+                                                                   text:@"Text"
+                                                           answerFormat:format];
+            item.placeholder = @"Input the value \"Valid\" to proceed.";
+            item.optional = NO;
+            [items addObject:item];
+        }
+        
+        [step setFormItems:items];
+    }
+    
+    {
+        ORKFormStep *step = [[ORKFormStep alloc] initWithIdentifier:@"step6" title:@"Optional Form Items" text:@"Required form with no required items"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
@@ -715,10 +804,23 @@
         
         [step setFormItems:items];
         step.optional = NO;
+        
+        step.shouldPresentStepBlock = ^BOOL(ORKTaskViewController *taskViewController, ORKStep *step) {
+            ORKTextQuestionResult *textResult = (ORKTextQuestionResult *)[[taskViewController.result stepResultForStepIdentifier:@"step5"] resultForIdentifier:@"text"];
+            BOOL isValid = [textResult.answer isEqualToString:@"Valid"];
+            if (!isValid) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                               message:@"Invalid text field value."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+                [taskViewController presentViewController:alert animated:YES completion:nil];
+            }
+            return isValid;
+        };
     }
     
     {
-        ORKFormStep *step = [[ORKFormStep alloc] initWithIdentifier:@"step6" title:@"Optional Form Items" text:@"Required form with some required items"];
+        ORKFormStep *step = [[ORKFormStep alloc] initWithIdentifier:@"step7" title:@"Optional Form Items" text:@"Required form with some required items"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
@@ -773,7 +875,7 @@
     }
     
     {
-        ORKFormStep *step = [[ORKFormStep alloc] initWithIdentifier:@"step7" title:@"Optional Form Items" text:@"Required form with all items required"];
+        ORKFormStep *step = [[ORKFormStep alloc] initWithIdentifier:@"step8" title:@"Optional Form Items" text:@"Required form with all items required"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
