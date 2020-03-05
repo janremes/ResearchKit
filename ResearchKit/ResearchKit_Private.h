@@ -38,7 +38,6 @@
 #import <ResearchKit/ORKErrors.h>
 
 #import <ResearchKit/ORKAnswerFormat_Private.h>
-#import <ResearchKit/ORKConsentSection_Private.h>
 #import <ResearchKit/ORKOrderedTask_Private.h>
 #import <ResearchKit/ORKPageStep_Private.h>
 #import <ResearchKit/ORKRecorder_Private.h>
@@ -74,8 +73,6 @@
 #import <ResearchKit/ORKQuestionStepViewController_Private.h>
 
 #import <ResearchKit/ORKAudioStepViewController.h>
-#import <ResearchKit/ORKConsentReviewStepViewController.h>
-#import <ResearchKit/ORKConsentSharingStepViewController.h>
 #import <ResearchKit/ORKCountdownStepViewController.h>
 #import <ResearchKit/ORKFitnessStepViewController.h>
 #import <ResearchKit/ORKHolePegTestPlaceStepViewController.h>
@@ -91,7 +88,6 @@
 #import <ResearchKit/ORKToneAudiometryPracticeStepViewController.h>
 #import <ResearchKit/ORKToneAudiometryStepViewController.h>
 #import <ResearchKit/ORKTimedWalkStepViewController.h>
-#import <ResearchKit/ORKVisualConsentStepViewController.h>
 #import <ResearchKit/ORKWalkingTaskStepViewController.h>
 #import <ResearchKit/ORKVideoInstructionStepViewController.h>
 

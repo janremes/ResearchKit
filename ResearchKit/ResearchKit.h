@@ -33,8 +33,6 @@
 
 #import <ResearchKit/ORKStep.h>
 #import <ResearchKit/ORKActiveStep.h>
-#import <ResearchKit/ORKConsentReviewStep.h>
-#import <ResearchKit/ORKConsentSharingStep.h>
 #import <ResearchKit/ORKFormStep.h>
 #import <ResearchKit/ORKImageCaptureStep.h>
 #import <ResearchKit/ORKInstructionStep.h>
@@ -50,7 +48,6 @@
 #import <ResearchKit/ORKTouchAnywhereStep.h>
 #import <ResearchKit/ORKVerificationStep.h>
 #import <ResearchKit/ORKVideoCaptureStep.h>
-#import <ResearchKit/ORKVisualConsentStep.h>
 #import <ResearchKit/ORKWaitStep.h>
 #import <ResearchKit/ORKVideoInstructionStep.h>
 #import <ResearchKit/ORKWebViewStep.h>
@@ -67,7 +64,6 @@
 #import <ResearchKit/ORKResult.h>
 #import <ResearchKit/ORKActiveTaskResult.h>
 #import <ResearchKit/ORKCollectionResult.h>
-#import <ResearchKit/ORKConsentSignatureResult.h>
 #import <ResearchKit/ORKPasscodeResult.h>
 #import <ResearchKit/ORKQuestionResult.h>
 #import <ResearchKit/ORKSignatureResult.h>
@@ -96,10 +92,6 @@
 #import <ResearchKit/ORKWebViewStepViewController.h>
 
 #import <ResearchKit/ORKRecorder.h>
-
-#import <ResearchKit/ORKConsentDocument.h>
-#import <ResearchKit/ORKConsentSection.h>
-#import <ResearchKit/ORKConsentSignature.h>
 
 #import <ResearchKit/ORKKeychainWrapper.h>
 
