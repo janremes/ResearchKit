@@ -51,14 +51,6 @@
     questionResult1.answer = @"answer";
     questionResult1.questionType = ORKQuestionTypeText;
     
-    ORKConsentSignatureResult *consentResult1 = [[ORKConsentSignatureResult alloc] init];
-    consentResult1.signature = [[ORKConsentSignature alloc] init];
-    
-    ORKStepResult *stepResult1 = [[ORKStepResult alloc] initWithStepIdentifier:@"StepIdentifier" results:@[fileResult1, questionResult1, consentResult1]];
-    
-    ORKTaskResult *taskResult1 = [[ORKTaskResult alloc] initWithTaskIdentifier:@"taskIdetifier"
-                                                                   taskRunUUID:[NSUUID UUID]
-                                                               outputDirectory: [NSURL fileURLWithPath:NSTemporaryDirectory()]];
     taskResult1.results = @[stepResult1];
     
     return taskResult1;
